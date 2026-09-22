@@ -9,26 +9,8 @@ interface Friend {
   description: string;
 }
 
-const friends: Friend[] = [
-  {
-    name: 'Neo',
-    url: 'https://example.com',
-    avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=neo',
-    description: '折腾全栈开发与嵌入式开发的技术极客。',
-  },
-  {
-    name: 'Alice',
-    url: 'https://example.com',
-    avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=alice',
-    description: '图形学爱好者，记录渲染与数字艺术笔记。',
-  },
-  {
-    name: 'Bob',
-    url: 'https://example.com',
-    avatar: 'https://api.dicebear.com/7.x/bottts/svg?seed=bob',
-    description: '专注分布式存储与算法设计。',
-  },
-];
+// 友链列表：有同学或朋友互换友链时，在此填入真实信息即可
+const friends: Friend[] = [];
 ---
 
 <BaseLayout title="同学与友链 (/friends/)" activeBoard="friends" boardName="/friends/ - 同学录与友链圈">
@@ -49,22 +31,29 @@ const friends: Friend[] = [
       <span class="postNum">No.000020</span>
     </div>
     <div class="postMessage">
-      <span class="quote">&gt; 独立博客的灵魂在于人与人之间的直接连接。</span>
-      <span class="quote">&gt; 互相交换友链不仅能让搜索引擎爬虫更好地发现我们，更是同学间记录与交流的小小仪式。</span>
+      <span class="quote">&gt; 欢迎各位同学与朋友交换友链。</span>
     </div>
   </div>
 
-  <!-- 友链卡片列表 -->
-  <div class="friendsGrid" id="friendsList">
-    {friends.map((friend) => (
-      <a class="friendCard" href={friend.url} target="_blank" rel="noopener">
-        <img class="friendAvatar" src={friend.avatar} alt={friend.name} loading="lazy" />
-        <div class="friendMeta">
-          <h4>{friend.name} ↗</h4>
-          <p class="friendDesc">{friend.description}</p>
-        </div>
-      </a>
-    ))}
+  <!-- 友链列表或空状态 -->
+  <div class="board" id="friendsList">
+    {friends.length > 0 ? (
+      <div class="friendsGrid">
+        {friends.map((friend) => (
+          <a class="friendCard" href={friend.url} target="_blank" rel="noopener">
+            <img class="friendAvatar" src={friend.avatar} alt={friend.name} loading="lazy" />
+            <div class="friendMeta">
+              <h4>{friend.name} ↗</h4>
+              <p class="friendDesc">{friend.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="opPost">
+        <blockquote class="postMessage">暂无友链，欢迎随时交换！信息见下方。</blockquote>
+      </div>
+    )}
   </div>
 
   <hr class="postRule" />
@@ -76,15 +65,15 @@ const friends: Friend[] = [
         <span class="subject">如何与我交换友链？</span>
       </div>
       <div class="postMessage">
-        <p>如果你也是我的同学、朋友或独立博客作者，欢迎将我的网站添加到你的友链列表中：</p>
+        <p>如果你希望与本站互换友链，可将以下信息添加到你的网站中：</p>
         <ul>
           <li><strong>名称：</strong><code>sakimi.log</code></li>
           <li><strong>网址：</strong><code>https://sakimi.github.io</code></li>
-          <li><strong>简介：</strong><code>Sakimi 的个人主页与数字花园</code></li>
+          <li><strong>简介：</strong><code>Sakimi 的个人主页与技术记录</code></li>
           <li><strong>图标：</strong><code>https://sakimi.github.io/favicon.svg</code></li>
         </ul>
         <p>
-          添加完成后，欢迎给我发邮件或在 GitHub 给我提个 Issue，告诉我你的博客信息，我会在第一时间添加！
+          添加后可通过 GitHub 提 Issue 或发邮件联系我，我会尽快将你的信息更新到此页面。
         </p>
       </div>
     </div>

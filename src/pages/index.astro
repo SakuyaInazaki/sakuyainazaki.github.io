@@ -4,69 +4,62 @@ import { getCollection } from 'astro:content';
 import { formatChanDate, formatPostNumber } from '../utils/format';
 
 const allPosts = await getCollection('blog');
-const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()).slice(0, 3);
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()).slice(0, 5);
 ---
 
-<BaseLayout title="主页 (/me/)" activeBoard="me" boardName="/sakimi/ - Sakimi's Den">
+<BaseLayout title="主页 (/me/)" activeBoard="me" boardName="/sakimi/ - sakimi.log">
   <div class="navLinks">
-    [<a href="#about">About</a>] [<a href="#now">Now</a>] [<a href="#recent">Recent Posts</a>] [<a href="#contact">Contact</a>]
+    [<a href="#about">About</a>] [<a href="#recent">Recent Posts</a>] [<a href="#contact">Contact</a>]
   </div>
 
   <hr class="topRule" />
 
   <div class="board">
-    <!-- 个人主页置顶 OP 帖 (About Me) -->
+    <!-- 个人主页置顶 OP 帖 -->
     <article class="opPost" id="about">
       <div class="fileInfo">
-        File: <a href="/assets/banner.png" target="_blank">sakimi_profile.png</a> (654 KB, 1688x948)
+        File: <a href="/assets/banner.png" target="_blank">banner.png</a> (654 KB, 1688x948)
       </div>
       <label class="thumbBox">
         <input type="checkbox" class="thumbToggle" aria-label="展开/收起图片" />
-        <img class="thumbImg" src="/assets/banner.png" alt="Sakimi Banner" loading="lazy" />
+        <img class="thumbImg" src="/assets/banner.png" alt="sakimi.log" loading="lazy" />
       </label>
 
       <div class="postInfo">
         <input type="checkbox" disabled aria-hidden="true" />
-        <span class="subject">Sakimi's Digital Garden & Personal Log</span>
+        <span class="subject">sakimi.log</span>
         <span class="name">Sakimi</span>
         <span class="capcode">## Admin</span>
         <span class="dateTime">{formatChanDate(new Date())}</span>
         <span class="postNum">No.000001</span>
-        <span class="replyLink">[<a href="#recent">View Recent</a>]</span>
+        <span class="replyLink">[<a href="#recent">Recent</a>]</span>
       </div>
 
       <div class="postMessage">
-        <span class="quote">&gt; Welcome to my personal log & digital workshop.</span>
-        <span class="quote">&gt; 这里是 Sakimi 的个人主页，参考 4chan 经典风格搭建的极简纯静态小站。</span>
+        <span class="quote">&gt; Welcome to sakimi.log.</span>
+        <span class="quote">&gt; 个人主页与技术记录。</span>
 
-        <h3>关于我 (About)</h3>
+        <h3>关于 (About)</h3>
         <p>
-          你好，我是 <strong>Sakimi</strong>。欢迎来到我的个人看板。<br />
-          这个网站是我记录思考、技术折腾心得、分享有趣项目与同学交流的地方。没有算法推送，没有信息过载，只有纯粹的内容与文本。
+          欢迎来到我的个人主页。本站参考 4chan 经典风格构建，用于记录技术笔记、思考与日常随笔。
         </p>
 
-        <h3 id="now">近期状态 (Now)</h3>
-        <ul>
-          <li><strong>正在学习/折腾：</strong>前端现代框架、静态架构、Linux 云服务、轻量化工具链。</li>
-          <li><strong>近期目标：</strong>持续记录个人技术随笔，与同学互相交换友链，完善个人开源作品。</li>
-        </ul>
-
-        <h3 id="contact">找到我 (Contact & Links)</h3>
+        <h3 id="contact">链接 (Links)</h3>
         <ul>
           <li><strong>GitHub：</strong><a href="https://github.com/sakimi" target="_blank" rel="noopener">github.com/sakimi</a></li>
-          <li><strong>博客专栏：</strong><a href="/blog">/blog/ - 查看全部文章随笔</a></li>
-          <li><strong>开源项目：</strong><a href="/projects">/projects/ - 实验与项目作品</a></li>
-          <li><strong>同学友链：</strong><a href="/friends">/friends/ - 交换友链与同学录</a></li>
+          <li><strong>博客：</strong><a href="/blog">/blog/ - 查看全部文章</a></li>
+          <li><strong>项目：</strong><a href="/projects">/projects/ - 项目与实验</a></li>
+          <li><strong>友链：</strong><a href="/friends">/friends/ - 同学与友链</a></li>
         </ul>
       </div>
     </article>
 
     <hr class="postRule" />
 
-    <!-- 最新文章精选预览 -->
+    <!-- 最新文章列表 -->
     <section id="recent">
       <div class="navLinks" style="font-weight: bold; margin-bottom: 8px;">
-        [ 近期发布 / Recent Threads ]
+        [ 近期发布 / Recent Posts ]
       </div>
 
       {sortedPosts.length > 0 ? (
@@ -80,32 +73,25 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pu
                 <span class="capcode">## Admin</span>
                 <span class="dateTime">{formatChanDate(post.data.pubDate)}</span>
                 <span class="postNum">{formatPostNumber(idx + 2)}</span>
-                <span class="replyLink">[<a href={`/blog/${post.id}`}>Read Thread</a>]</span>
+                <span class="replyLink">[<a href={`/blog/${post.id}`}>Read</a>]</span>
               </div>
               <div class="postMessage">
-                <p>{post.data.description || '点击查看正文详情...'}</p>
-                <div style="margin-top: 6px;">
-                  {post.data.tags.map((tag) => (
-                    <span class="tagBadge">#{tag}</span>
-                  ))}
-                  <a href={`/blog/${post.id}`} style="font-size: 11px; margin-left: 8px;">阅读全文 »</a>
-                </div>
+                <p>{post.data.description || ''}</p>
+                {post.data.tags.length > 0 && (
+                  <div style="margin-top: 6px;">
+                    {post.data.tags.map((tag) => (
+                      <span class="tagBadge">#{tag}</span>
+                    ))}
+                    <a href={`/blog/${post.id}`} style="font-size: 11px; margin-left: 8px;">阅读全文 »</a>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         ))
       ) : (
-        <div class="replyContainer">
-          <div class="reply">
-            <div class="postInfo">
-              <span class="name">Sakimi</span> <span class="capcode">## Admin</span>
-              <span class="dateTime">{formatChanDate(new Date())}</span>
-              <span class="postNum">No.000002</span>
-            </div>
-            <div class="postMessage">
-              <p>暂无更多文章，随时准备在 <code>src/content/blog/</code> 中写下第一篇随笔！</p>
-            </div>
-          </div>
+        <div class="opPost">
+          <blockquote class="postMessage">暂无文章。</blockquote>
         </div>
       )}
     </section>
