@@ -618,23 +618,40 @@ pre code {
   }
 }
 
-/* ── About 右上角浮动 GIF ─────────────── */
-.aboutSideGif {
-  float: right;
-  width: 140px;
-  height: 140px;
+/* ── OP 主体与右邻近 GIF ─────────────── */
+.opContentWithGif {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: fit-content;
+}
+
+.opTextColumn {
+  max-width: 650px;
+}
+
+.opInlineGif {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.nearContentGif {
+  width: 125px;
+  height: 125px;
   object-fit: cover;
   border: 1px solid var(--rule);
   background: var(--code-bg);
-  margin: 0 0 12px 16px;
   border-radius: 2px;
+  display: block;
 }
 
-@media (max-width: 580px) {
-  .aboutSideGif {
-    float: none;
-    margin: 10px 0;
-    width: 120px;
-    height: 120px;
+@media (max-width: 820px) {
+  .opContentWithGif {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .opInlineGif {
+    margin: 8px 0 8px 1.6em;
   }
 }
