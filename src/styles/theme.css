@@ -611,3 +611,47 @@ pre code {
     row-gap: 4px;
   }
 }
+
+/* ── 主页图片网格 ─────────────────────── */
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 10px 0 16px;
+}
+
+.galleryCard {
+  background: var(--card-bg);
+  border: 1px solid var(--post-border);
+  padding: 6px;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: column;
+}
+
+.galleryCard .fileInfo {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.galleryCard a {
+  text-decoration: none;
+}
+
+.galleryImg {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+  background: var(--code-bg);
+  display: block;
+  transition: border-color 0.15s ease;
+}
+
+.galleryCard:hover .galleryImg {
+  border-color: var(--link-hover);
+}
