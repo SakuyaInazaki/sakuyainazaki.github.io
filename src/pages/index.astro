@@ -8,12 +8,6 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pu
 ---
 
 <BaseLayout title="主页 (/me/)" activeBoard="me" boardName="/Sak1m!/">
-  <div class="navLinks">
-    [<a href="#about">About</a>] [<a href="#recent">Recent Posts</a>] [<a href="#contact">Contact</a>]
-  </div>
-
-  <hr class="topRule" />
-
   <div class="board">
     <!-- 个人主页置顶 OP 帖 -->
     <article class="opPost" id="about">
