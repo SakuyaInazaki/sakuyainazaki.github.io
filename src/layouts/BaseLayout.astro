@@ -10,10 +10,10 @@ interface Props {
 }
 
 const {
-  title = 'sakimi.log',
-  description = 'Sakimi 的个人主页与数字花园 / Personal website & blog of Sakimi',
+  title = '/Sak1m!/',
+  description = 'Sakimi 的个人主页与数字空间',
   activeBoard = 'me',
-  boardName = '/sakimi/ - sakimi.log',
+  boardName = '/Sak1m!/',
   image = '/assets/banner.png',
 } = Astro.props;
 
@@ -25,7 +25,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://sakimi.g
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title === 'sakimi.log' ? title : `${title} - sakimi.log`}</title>
+    <title>{title === '/Sak1m!/' ? title : `${title} - /Sak1m!/`}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
@@ -76,7 +76,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://sakimi.g
     <!-- Banner 与 板块标识 -->
     <div class="boardBanner">
       <a class="bannerLink" href="/">
-        <img class="bannerImg" src="/assets/banner.png" alt="sakimi.log banner" />
+        <img class="bannerImg" src="/assets/banner.png" alt="/Sak1m!/ banner" />
       </a>
       <h1 class="boardTitle">{boardName}</h1>
       <p class="boardSubtitle">记录思考、折腾实验与日常随笔</p>

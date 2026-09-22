@@ -1,4 +1,4 @@
-# sakimi.log
+# /Sak1m!/
 
 4chan (Yotsuba B / Tomorrow) 风格的极简个人主页与纯静态数字花园。基于 [Astro](https://astro.build/) 构建，专为 **GitHub Pages** 打造。
 

@@ -7,7 +7,7 @@ const allPosts = await getCollection('blog');
 const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()).slice(0, 5);
 ---
 
-<BaseLayout title="主页 (/me/)" activeBoard="me" boardName="/sakimi/ - sakimi.log">
+<BaseLayout title="主页 (/me/)" activeBoard="me" boardName="/Sak1m!/">
   <div class="navLinks">
     [<a href="#about">About</a>] [<a href="#recent">Recent Posts</a>] [<a href="#contact">Contact</a>]
   </div>
@@ -22,13 +22,13 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pu
       </div>
       <label class="thumbBox">
         <input type="checkbox" class="thumbToggle" aria-label="展开/收起图片" />
-        <img class="thumbImg" src="/assets/banner.png" alt="sakimi.log" loading="lazy" />
+        <img class="thumbImg" src="/assets/banner.png" alt="/Sak1m!/" loading="lazy" />
       </label>
 
       <div class="postInfo">
         <input type="checkbox" disabled aria-hidden="true" />
-        <span class="subject">sakimi.log</span>
-        <span class="name">Sakimi</span>
+        <span class="subject">/Sak1m!/</span>
+        <span class="name">Sak1m!</span>
         <span class="capcode">## Admin</span>
         <span class="dateTime">{formatChanDate(new Date())}</span>
         <span class="postNum">No.000001</span>
@@ -36,7 +36,7 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pu
       </div>
 
       <div class="postMessage">
-        <span class="quote">&gt; Welcome to sakimi.log.</span>
+        <span class="quote">&gt; Welcome to /Sak1m!/.</span>
         <span class="quote">&gt; 个人主页与技术记录。</span>
 
         <h3>关于 (About)</h3>
