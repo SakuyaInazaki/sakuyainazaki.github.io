@@ -67,8 +67,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://sakimi.g
         ]
       </div>
       <div>
-        <button id="themeToggleBtn" class="themeToggleBtn" type="button" title="切换白天/夜间模式">
-          [ 模式: <span id="themeLabel">☀ 白天</span> ]
+        <button id="themeToggleBtn" class="themeToggleBtn" type="button" title="Toggle Light/Dark Theme">
+          [ Theme: <span id="themeLabel">☀ Light</span> ]
         </button>
       </div>
     </div>
@@ -103,7 +103,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://sakimi.g
         if (!btn || !label) return;
 
         function updateUI(theme: string) {
-          label!.textContent = theme === 'dark' ? '🌙 夜间' : '☀ 白天';
+          label!.textContent = theme === 'dark' ? '🌙 Dark' : '☀ Light';
         }
 
         const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
