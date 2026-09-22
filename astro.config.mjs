@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://sakimi.github.io',
+  site: 'https://sakuyainazaki.github.io',
   integrations: [sitemap()],
   markdown: {
     shikiConfig: {

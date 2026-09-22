@@ -30,20 +30,20 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pu
       </div>
 
       <div class="postMessage">
+        <span class="quote">&gt; 27 Club, or...what?</span>
         <span class="quote">&gt; Welcome to /Sak1m!/.</span>
-        <span class="quote">&gt; 个人主页与技术记录。</span>
 
-        <h3>关于 (About)</h3>
+        <h3>About</h3>
         <p>
-          欢迎来到我的个人主页。本站参考 4chan 经典风格构建，用于记录技术笔记、思考与日常随笔。
+          Male | Junior @ RUC, Artificial Intelligence | Maimai player | ...
         </p>
 
-        <h3 id="contact">链接 (Links)</h3>
+        <h3 id="contact">Links</h3>
         <ul>
-          <li><strong>GitHub：</strong><a href="https://github.com/sakimi" target="_blank" rel="noopener">github.com/sakimi</a></li>
-          <li><strong>博客：</strong><a href="/blog">/blog/ - 查看全部文章</a></li>
-          <li><strong>项目：</strong><a href="/projects">/projects/ - 项目与实验</a></li>
-          <li><strong>友链：</strong><a href="/friends">/friends/ - 同学与友链</a></li>
+          <li><strong>GitHub:</strong> <a href="https://github.com/SakuyaInazaki" target="_blank" rel="noopener">github.com/SakuyaInazaki</a></li>
+          <li><strong>Blog:</strong> <a href="/blog">/blog/</a></li>
+          <li><strong>Projects:</strong> <a href="/projects">/projects/</a></li>
+          <li><strong>Friends:</strong> <a href="/friends">/friends/</a></li>
         </ul>
       </div>
     </article>
@@ -53,7 +53,7 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pu
     <!-- 最新文章列表 -->
     <section id="recent">
       <div class="navLinks" style="font-weight: bold; margin-bottom: 8px;">
-        [ 近期发布 / Recent Posts ]
+        [ Recent Posts ]
       </div>
 
       {sortedPosts.length > 0 ? (
@@ -63,7 +63,7 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pu
               <div class="postInfo">
                 <input type="checkbox" disabled aria-hidden="true" />
                 <span class="subject"><a href={`/blog/${post.id}`}>{post.data.title}</a></span>
-                <span class="name">Sakimi</span>
+                <span class="name">Sak1m!</span>
                 <span class="capcode">## Admin</span>
                 <span class="dateTime">{formatChanDate(post.data.pubDate)}</span>
                 <span class="postNum">{formatPostNumber(idx + 2)}</span>
@@ -76,7 +76,7 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pu
                     {post.data.tags.map((tag) => (
                       <span class="tagBadge">#{tag}</span>
                     ))}
-                    <a href={`/blog/${post.id}`} style="font-size: 11px; margin-left: 8px;">阅读全文 »</a>
+                    <a href={`/blog/${post.id}`} style="font-size: 11px; margin-left: 8px;">Read More »</a>
                   </div>
                 )}
               </div>
@@ -85,7 +85,7 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pu
         ))
       ) : (
         <div class="opPost">
-          <blockquote class="postMessage">暂无文章。</blockquote>
+          <blockquote class="postMessage">None.</blockquote>
         </div>
       )}
     </section>
