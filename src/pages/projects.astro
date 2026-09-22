@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatChanDate } from '../utils/format';
+
+interface Project {
+  title: string;
+  description: string;
+  status: 'Active' | 'WIP' | 'Experimental';
+  tags: string[];
+  githubUrl?: string;
+  demoUrl?: string;
+}
+
+const projects: Project[] = [
+  {
+    title: 'self-web-blog',
+    description: '参考 4chan 经典 Yotsuba B 与 Tomorrow 设计的纯静态极简个人主页与博客系统，支持自动化部署至 GitHub Pages。',
+    status: 'Active',
+    tags: ['Astro', 'TypeScript', 'CSS', 'GitHub Pages'],
+    githubUrl: 'https://github.com/sakimi',
+  },
+  {
+    title: 'agently-mail',
+    description: '轻量高效的智能命令行邮件自动化工具，支持邮件搜索、快捷阅读、智能回复与附件下载管理。',
+    status: 'Active',
+    tags: ['Python', 'CLI', 'Automation'],
+    githubUrl: 'https://github.com/sakimi',
+  },
+  {
+    title: 'Personal Lab & Prototypes',
+    description: '存放平时的代码小实验、算法练习、日常脚本与探索性 Demo 的代码实验室。',
+    status: 'WIP',
+    tags: ['Experiments', 'Algorithms', 'Toys'],
+    githubUrl: 'https://github.com/sakimi',
+  },
+];
+---
+
+<BaseLayout title="项目展示 (/projects/)" activeBoard="projects" boardName="/projects/ - 实验与项目工坊">
+  <div class="navLinks">
+    [<a href="#list">Projects List</a>] [<a href="#contact">Propose Idea</a>] [<a href="#bottom">Bottom</a>]
+  </div>
+
+  <hr class="topRule" />
+
+  <div class="opPost">
+    <div class="postInfo">
+      <input type="checkbox" disabled aria-hidden="true" />
+      <span class="subject">Projects Index & Works</span>
+      <span class="name">Sakimi</span>
+      <span class="capcode">## Admin</span>
+      <span class="dateTime">{formatChanDate(new Date())}</span>
+      <span class="postNum">No.000010</span>
+    </div>
+    <div class="postMessage">
+      <span class="quote">&gt; 这里收录了我正在开发、维护或折腾的好玩项目与工具。</span>
+      <span class="quote">&gt; 代码即玩具，保持好奇心与持续构建。</span>
+    </div>
+  </div>
+
+  <div class="projectsGrid" id="list">
+    {projects.map((project) => (
+      <div class="projectCard">
+        <div class="projectHeader">
+          <h3 class="projectTitle">
+            {project.githubUrl ? (
+              <a href={project.githubUrl} target="_blank" rel="noopener">{project.title}</a>
+            ) : (
+              project.title
+            )}
+          </h3>
+          <span style="font-size: 11px; color: var(--subject); font-weight: bold;">[{project.status}]</span>
+        </div>
+        <p class="projectDesc">{project.description}</p>
+        <div style="margin-bottom: 8px;">
+          {project.tags.map((t) => (
+            <span class="tagBadge">#{t}</span>
+          ))}
+        </div>
+        <div class="projectLinks">
+          {project.githubUrl && (
+            <a href={project.githubUrl} target="_blank" rel="noopener">[GitHub Repo]</a>
+          )}
+          {project.demoUrl && (
+            <a href={project.demoUrl} target="_blank" rel="noopener">[Live Preview]</a>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div id="bottom"></div>
+</BaseLayout>

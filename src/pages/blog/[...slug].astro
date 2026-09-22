@@ -1,0 +1,74 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CommentSection from '../../components/CommentSection.astro';
+import { formatChanDate, formatPostNumber } from '../../utils/format';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post, index) => ({
+    params: { slug: post.id },
+    props: { post, index },
+  }));
+}
+
+const { post, index } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  activeBoard="blog"
+  boardName="/blog/ - 文章随笔"
+>
+  <div class="navLinks navTop">
+    [<a href="/blog">Return</a>] [<a href="/blog#threads">Catalog</a>] [<a href="#comments">Discussion</a>] [<a href="#bottom">Bottom</a>]
+  </div>
+
+  <hr class="topRule" />
+
+  <div class="board">
+    <article class="opPost" id={`p${index + 1}`}>
+      {post.data.image && (
+        <div class="fileInfo">
+          File: <a href={post.data.image} target="_blank">{post.data.image.split('/').pop()}</a>
+        </div>
+        <label class="thumbBox">
+          <input type="checkbox" class="thumbToggle" aria-label="展开/收起图片" />
+          <img class="thumbImg" src={post.data.image} alt={post.data.title} loading="lazy" />
+        </label>
+      )}
+
+      <div class="postInfo">
+        <input type="checkbox" disabled aria-hidden="true" />
+        <span class="subject">{post.data.title}</span>
+        <span class="name">Sakimi</span>
+        <span class="capcode">## Admin</span>
+        <span class="dateTime">{formatChanDate(post.data.pubDate)}</span>
+        <span class="postNum">{formatPostNumber(index + 1)}</span>
+        <span class="replyLink">[<a href="#comments">Reply</a>]</span>
+      </div>
+
+      <blockquote class="postMessage">
+        <Content />
+      </blockquote>
+
+      <div class="omitted" style="margin-top: 14px;">
+        <strong>标签：</strong>
+        {post.data.tags.map((tag) => (
+          <span class="tagBadge">#{tag}</span>
+        ))}
+      </div>
+    </article>
+  </div>
+
+  <!-- 互动讨论组件 -->
+  <CommentSection postTitle={post.data.title} postUrl={Astro.url.href} />
+
+  <hr class="topRule" />
+
+  <div id="bottom" class="navLinks navBottom">
+    [<a href="/blog">Return</a>] [<a href="/blog#threads">Catalog</a>] [<a href="#top">Top</a>]
+  </div>
+</BaseLayout>

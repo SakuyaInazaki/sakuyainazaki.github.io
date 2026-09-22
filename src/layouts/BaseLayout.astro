@@ -1,0 +1,125 @@
+---
+import '../styles/theme.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  activeBoard?: 'me' | 'blog' | 'projects' | 'friends';
+  boardName?: string;
+  image?: string;
+}
+
+const {
+  title = 'sakimi.log',
+  description = 'Sakimi 的个人主页与数字花园 / Personal website & blog of Sakimi',
+  activeBoard = 'me',
+  boardName = '/sakimi/ - sakimi.log',
+  image = '/assets/banner.png',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://sakimi.github.io');
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title === 'sakimi.log' ? title : `${title} - sakimi.log`}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- OpenGraph / Social Cards -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, canonicalURL)} />
+
+    <!-- Favicon & Sitemap -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Anti-FOUC Theme Switcher Script -->
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem('sakimi_theme');
+        if (stored === 'dark' || stored === 'light') {
+          document.documentElement.setAttribute('data-theme', stored);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- 顶部版块条与主题切换 -->
+    <div class="boardList" id="top">
+      <div class="boards">
+        [
+        <a href="/" class={activeBoard === 'me' ? 'active' : ''}>/me/ (主页)</a> /
+        <a href="/blog" class={activeBoard === 'blog' ? 'active' : ''}>/blog/ (博客)</a> /
+        <a href="/projects" class={activeBoard === 'projects' ? 'active' : ''}>/projects/ (项目)</a> /
+        <a href="/friends" class={activeBoard === 'friends' ? 'active' : ''}>/friends/ (友链)</a>
+        ]
+      </div>
+      <div>
+        <button id="themeToggleBtn" class="themeToggleBtn" type="button" title="切换白天/夜间模式">
+          [ 模式: <span id="themeLabel">☀ 白天</span> ]
+        </button>
+      </div>
+    </div>
+
+    <!-- Banner 与 板块标识 -->
+    <div class="boardBanner">
+      <a class="bannerLink" href="/">
+        <img class="bannerImg" src="/assets/banner.png" alt="sakimi.log banner" />
+      </a>
+      <h1 class="boardTitle">{boardName}</h1>
+      <p class="boardSubtitle">记录思考、折腾实验与日常随笔</p>
+    </div>
+
+    <hr class="topRule" />
+
+    <!-- 页面核心插槽 -->
+    <main>
+      <slot />
+    </main>
+
+    <hr class="topRule" />
+
+    <footer class="navLinks navBottom">
+      [<a href="#top">Top</a>] [<a href="/">/me/</a>] [<a href="/blog">/blog/</a>] [<a href="/projects">/projects/</a>] [<a href="/friends">/friends/</a>]
+    </footer>
+
+    <!-- 主题切换交互脚本 -->
+    <script>
+      function initThemeToggle() {
+        const btn = document.getElementById('themeToggleBtn');
+        const label = document.getElementById('themeLabel');
+        if (!btn || !label) return;
+
+        function updateUI(theme: string) {
+          label!.textContent = theme === 'dark' ? '🌙 夜间' : '☀ 白天';
+        }
+
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        updateUI(currentTheme);
+
+        btn.addEventListener('click', () => {
+          const now = document.documentElement.getAttribute('data-theme') || 'light';
+          const next = now === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('sakimi_theme', next);
+          updateUI(next);
+        });
+      }
+
+      initThemeToggle();
+      document.addEventListener('astro:after-swap', initThemeToggle);
+    </script>
+  </body>
+</html>
