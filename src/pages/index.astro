@@ -84,12 +84,12 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pu
             <div class="reply" style="width: 100%;">
               <div class="postInfo">
                 <input type="checkbox" disabled aria-hidden="true" />
-                <span class="subject"><a href={`/blog/${post.id}`}>{post.data.title}</a></span>
+                <span class="subject"><a href={`/blog#p${idx + 1}`}>{post.data.title}</a></span>
                 <span class="name">Sak1m!</span>
                 <span class="capcode">## Admin</span>
                 <span class="dateTime">{formatChanDate(post.data.pubDate)}</span>
                 <span class="postNum">{formatPostNumber(idx + 2)}</span>
-                <span class="replyLink">[<a href={`/blog/${post.id}`}>Read</a>]</span>
+                <span class="replyLink">[<a href={`/blog#p${idx + 1}`}>Read</a>]</span>
               </div>
               <div class="postMessage">
                 <p style="white-space: pre-line;">{post.data.description || (post.body ? post.body.trim().slice(0, 180) + '...' : '')}</p>
@@ -98,7 +98,7 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pu
                     {post.data.tags.map((tag) => (
                       <span class="tagBadge">#{tag}</span>
                     ))}
-                    <a href={`/blog/${post.id}`} style="font-size: 11px; margin-left: 8px;">Read More »</a>
+                    <a href={`/blog#p${idx + 1}`} style="font-size: 11px; margin-left: 8px;">Read More »</a>
                   </div>
                 )}
               </div>

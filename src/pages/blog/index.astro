@@ -46,13 +46,12 @@ const renderedPosts = await Promise.all(
               <div class="postInfo">
                 <input type="checkbox" disabled aria-hidden="true" />
                 <span class="subject">
-                  <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                  <a href={`#p${index + 1}`}>{post.data.title}</a>
                 </span>
                 <span class="name">Sak1m!</span>
                 <span class="capcode">## Admin</span>
                 <span class="dateTime">{formatChanDate(post.data.pubDate)}</span>
-                <span class="postNum">{formatPostNumber(index + 1)}</span>
-                <span class="replyLink">[<a href={`/blog/${post.id}`}>Thread</a>]</span>
+                <span class="postNum"><a href={`#p${index + 1}`}>{formatPostNumber(index + 1)}</a></span>
               </div>
 
               <blockquote class="postMessage">
