@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { formatChanDate } from '../utils/format';
 
 interface Project {
   title: string;
@@ -11,32 +10,11 @@ interface Project {
   demoUrl?: string;
 }
 
-// 实际项目列表：后续可随时在下方数组追加你的真实项目
 const projects: Project[] = [];
 ---
 
-<BaseLayout title="项目展示 (/projects/)" activeBoard="projects" boardName="/projects/ - 实验与项目工坊">
-  <div class="navLinks">
-    [<a href="#list">Projects List</a>] [<a href="#bottom">Bottom</a>]
-  </div>
-
-  <hr class="topRule" />
-
-  <div class="opPost">
-    <div class="postInfo">
-      <input type="checkbox" disabled aria-hidden="true" />
-      <span class="subject">Projects Index</span>
-      <span class="name">Sakimi</span>
-      <span class="capcode">## Admin</span>
-      <span class="dateTime">{formatChanDate(new Date())}</span>
-      <span class="postNum">No.000010</span>
-    </div>
-    <div class="postMessage">
-      <span class="quote">&gt; 个人开发与维护的项目、工具与实验集合。</span>
-    </div>
-  </div>
-
-  <div class="board" id="list">
+<BaseLayout title="/projects/" activeBoard="projects" boardName="/projects/">
+  <div class="board">
     {projects.length > 0 ? (
       <div class="projectsGrid">
         {projects.map((project) => (
@@ -69,11 +47,7 @@ const projects: Project[] = [];
         ))}
       </div>
     ) : (
-      <div class="opPost">
-        <blockquote class="postMessage">暂无公开项目，正在整理中。</blockquote>
-      </div>
+      <blockquote class="postMessage">None.</blockquote>
     )}
   </div>
-
-  <div id="bottom"></div>
 </BaseLayout>

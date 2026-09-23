@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { formatChanDate } from '../utils/format';
 
 interface Friend {
   name: string;
@@ -9,33 +8,10 @@ interface Friend {
   description: string;
 }
 
-// 友链列表：有同学或朋友互换友链时，在此填入真实信息即可
 const friends: Friend[] = [];
 ---
 
-<BaseLayout title="同学与友链 (/friends/)" activeBoard="friends" boardName="/friends/ - 同学录与友链圈">
-  <div class="navLinks">
-    [<a href="#friendsList">Friends List</a>] [<a href="#exchange">How to Exchange</a>] [<a href="#bottom">Bottom</a>]
-  </div>
-
-  <hr class="topRule" />
-
-  <!-- 友链介绍 OP 帖 -->
-  <div class="opPost">
-    <div class="postInfo">
-      <input type="checkbox" disabled aria-hidden="true" />
-      <span class="subject">Classmates & Friends Webring</span>
-      <span class="name">Sakimi</span>
-      <span class="capcode">## Admin</span>
-      <span class="dateTime">{formatChanDate(new Date())}</span>
-      <span class="postNum">No.000020</span>
-    </div>
-    <div class="postMessage">
-      <span class="quote">&gt; 欢迎各位同学与朋友交换友链。</span>
-    </div>
-  </div>
-
-  <!-- 友链列表或空状态 -->
+<BaseLayout title="/friends/" activeBoard="friends" boardName="/friends/">
   <div class="board" id="friendsList">
     {friends.length > 0 ? (
       <div class="friendsGrid">
@@ -50,9 +26,7 @@ const friends: Friend[] = [];
         ))}
       </div>
     ) : (
-      <div class="opPost">
-        <blockquote class="postMessage">暂无友链，欢迎随时交换！信息见下方。</blockquote>
-      </div>
+      <blockquote class="postMessage">None.</blockquote>
     )}
   </div>
 
@@ -62,22 +36,18 @@ const friends: Friend[] = [];
   <div class="replyContainer" id="exchange">
     <div class="reply" style="width: 100%;">
       <div class="postInfo">
-        <span class="subject">如何与我交换友链？</span>
+        <span class="subject">Exchange Links</span>
       </div>
       <div class="postMessage">
-        <p>如果你希望与本站互换友链，可将以下信息添加到你的网站中：</p>
         <ul>
-          <li><strong>名称：</strong><code>/Sak1m!/</code></li>
-          <li><strong>网址：</strong><code>https://sakuyainazaki.github.io</code></li>
-          <li><strong>简介：</strong><code>Sakimi 的个人主页与技术记录</code></li>
-          <li><strong>图标：</strong><code>https://sakuyainazaki.github.io/favicon.svg</code></li>
+          <li><strong>Name:</strong> <code>/Sak1m!/</code></li>
+          <li><strong>URL:</strong> <code>https://sakuyainazaki.github.io</code></li>
+          <li><strong>Icon:</strong> <code>https://sakuyainazaki.github.io/favicon.svg</code></li>
         </ul>
         <p>
-          添加后可通过 GitHub 提 Issue 或发邮件联系我，我会尽快将你的信息更新到此页面。
+          Contact me via GitHub Issue or Email to exchange links.
         </p>
       </div>
     </div>
   </div>
-
-  <div id="bottom"></div>
 </BaseLayout>

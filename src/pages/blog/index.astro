@@ -5,22 +5,13 @@ import { formatChanDate, formatPostNumber } from '../../utils/format';
 
 const posts = await getCollection('blog');
 const sortedPosts = posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
-
-// 提取所有标签
 const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags)));
 ---
 
-<BaseLayout title="博客随笔 (/blog/)" activeBoard="blog" boardName="/blog/ - 文章与随笔">
-  <div class="navLinks">
-    [<a href="#threads">Catalog</a>] [<a href="#tags">Tags</a>] [<a href="#bottom">Bottom</a>]
-  </div>
-
-  <hr class="topRule" />
-
-  <!-- 标签快捷筛选 -->
+<BaseLayout title="/blog/" activeBoard="blog" boardName="/blog/">
   {allTags.length > 0 && (
     <div id="tags" style="font-size: 11px; margin: 6px 0; color: var(--text-muted);">
-      <strong>分类标签:</strong>
+      <strong>Tags:</strong>
       {allTags.map((tag) => (
         <span class="tagBadge">#{tag}</span>
       ))}
@@ -36,11 +27,11 @@ const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags)));
             <span class="subject">
               <a href={`/blog/${post.id}`}>{post.data.title}</a>
             </span>
-            <span class="name">Sakimi</span>
+            <span class="name">Sak1m!</span>
             <span class="capcode">## Admin</span>
             <span class="dateTime">{formatChanDate(post.data.pubDate)}</span>
             <span class="postNum">{formatPostNumber(index + 1)}</span>
-            <span class="replyLink">[<a href={`/blog/${post.id}`}>Reply / Read</a>]</span>
+            <span class="replyLink">[<a href={`/blog/${post.id}`}>Read</a>]</span>
           </div>
 
           <blockquote class="postMessage">
@@ -51,18 +42,14 @@ const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags)));
             {post.data.tags.map((tag) => (
               <span class="tagBadge">#{tag}</span>
             ))}
-            <a href={`/blog/${post.id}`} style="margin-left: 6px;">展开阅读全文 »</a>
+            <a href={`/blog/${post.id}`} style="margin-left: 6px;">Read More »</a>
           </div>
 
           {index < sortedPosts.length - 1 && <hr class="postRule" />}
         </article>
       ))
     ) : (
-      <div class="opPost">
-        <blockquote class="postMessage">暂无文章。</blockquote>
-      </div>
+      <blockquote class="postMessage">None.</blockquote>
     )}
   </div>
-
-  <div id="bottom"></div>
 </BaseLayout>
