@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import CommentSection from '../../components/CommentSection.astro';
 import { formatChanDate, formatPostNumber } from '../../utils/format';
 
 export async function getStaticPaths() {
@@ -23,7 +22,7 @@ const { Content } = await render(post);
   boardName="/blog/"
 >
   <div class="navLinks navTop">
-    [<a href="/blog">Return</a>] [<a href="/blog#threads">Catalog</a>] [<a href="#comments">Discussion</a>] [<a href="#bottom">Bottom</a>]
+    [<a href="/blog">Return</a>] [<a href="/blog#threads">Catalog</a>] [<a href="#bottom">Bottom</a>]
   </div>
 
   <hr class="topRule" />
@@ -51,7 +50,7 @@ const { Content } = await render(post);
             <span class="capcode">## Admin</span>
             <span class="dateTime">{formatChanDate(post.data.pubDate)}</span>
             <span class="postNum">{formatPostNumber(index + 1)}</span>
-            <span class="replyLink">[<a href="#comments">Reply</a>]</span>
+            <span class="replyLink">[<a href="#bottom">Bottom</a>]</span>
           </div>
 
           <blockquote class="postMessage">
@@ -70,9 +69,6 @@ const { Content } = await render(post);
       </div>
     </article>
   </div>
-
-  <!-- 互动讨论组件 -->
-  <CommentSection postTitle={post.data.title} postUrl={Astro.url.href} />
 
   <hr class="topRule" />
 
