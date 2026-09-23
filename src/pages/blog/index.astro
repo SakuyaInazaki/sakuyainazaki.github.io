@@ -22,6 +22,15 @@ const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags)));
     {sortedPosts.length > 0 ? (
       sortedPosts.map((post, index) => (
         <article class="opPost" id={`p${index + 1}`}>
+          {post.data.image && (
+            <div class="fileInfo">
+              File: <a href={post.data.image} target="_blank">{post.data.image.split('/').pop()}</a>
+            </div>
+            <label class="thumbBox">
+              <input type="checkbox" class="thumbToggle" aria-label="展开/收起图片" />
+              <img class="thumbImg" src={post.data.image} alt={post.data.title} loading="lazy" />
+            </label>
+          )}
           <div class="postInfo">
             <input type="checkbox" disabled aria-hidden="true" />
             <span class="subject">
@@ -35,14 +44,14 @@ const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags)));
           </div>
 
           <blockquote class="postMessage">
-            <p>{post.data.description}</p>
+            <p>{post.data.description || (post.body ? post.body.trim().slice(0, 180) + '...' : '')}</p>
           </blockquote>
 
           <div class="omitted">
-            {post.data.tags.map((tag) => (
+            {post.data.tags.length > 0 && post.data.tags.map((tag) => (
               <span class="tagBadge">#{tag}</span>
             ))}
-            <a href={`/blog/${post.id}`} style="margin-left: 6px;">Read More »</a>
+            <a href={`/blog/${post.id}`} style={post.data.tags.length > 0 ? "margin-left: 6px;" : ""}>Read More »</a>
           </div>
 
           {index < sortedPosts.length - 1 && <hr class="postRule" />}

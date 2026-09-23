@@ -86,7 +86,7 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pu
                 <span class="replyLink">[<a href={`/blog/${post.id}`}>Read</a>]</span>
               </div>
               <div class="postMessage">
-                <p>{post.data.description || ''}</p>
+                <p>{post.data.description || (post.body ? post.body.trim().slice(0, 140) + '...' : '')}</p>
                 {post.data.tags.length > 0 && (
                   <div style="margin-top: 6px;">
                     {post.data.tags.map((tag) => (
