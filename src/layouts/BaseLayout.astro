@@ -7,6 +7,7 @@ interface Props {
   activeBoard?: 'me' | 'blog' | 'projects' | 'friends';
   boardName?: string;
   image?: string;
+  showBanner?: boolean;
 }
 
 const {
@@ -15,9 +16,10 @@ const {
   activeBoard = 'me',
   boardName = '/Sak1m!/',
   image = '/assets/banner.png',
+  showBanner = activeBoard === 'me',
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://sakimi.github.io');
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://sakuyainazaki.github.io');
 ---
 
 <!doctype html>
@@ -75,11 +77,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://sakimi.g
 
     <!-- Banner 与 板块标识 -->
     <div class="boardBanner">
-      <a class="bannerLink" href="/">
-        <img class="bannerImg" src="/assets/banner.png" alt="/Sak1m!/ banner" />
-      </a>
+      {showBanner && (
+        <a class="bannerLink" href="/">
+          <img class="bannerImg" src="/assets/banner.png" alt="/Sak1m!/ banner" />
+        </a>
+      )}
       <h1 class="boardTitle">{boardName}</h1>
-      <p class="boardSubtitle">僕ら また出逢えるように - 彷彿我們能夠再次重逢</p>
+      {showBanner && (
+        <p class="boardSubtitle">僕ら また出逢えるように - 彷彿我們能夠再次重逢</p>
+      )}
     </div>
 
     <hr class="topRule" />
