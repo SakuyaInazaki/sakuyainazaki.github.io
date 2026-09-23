@@ -1,11 +1,18 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { formatChanDate, formatPostNumber } from '../../utils/format';
 
 const posts = await getCollection('blog');
 const sortedPosts = posts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags)));
+
+const renderedPosts = await Promise.all(
+  sortedPosts.map(async (post) => {
+    const { Content } = await render(post);
+    return { post, Content };
+  })
+);
 ---
 
 <BaseLayout title="/blog/" activeBoard="blog" boardName="/blog/">
@@ -19,8 +26,8 @@ const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags)));
   )}
 
   <div id="threads" class="board">
-    {sortedPosts.length > 0 ? (
-      sortedPosts.map((post, index) => (
+    {renderedPosts.length > 0 ? (
+      renderedPosts.map(({ post, Content }, index) => (
         <article class="opPost" id={`p${index + 1}`}>
           {post.data.image && (
             <div class="fileInfo">
@@ -40,21 +47,22 @@ const allTags = Array.from(new Set(posts.flatMap(p => p.data.tags)));
             <span class="capcode">## Admin</span>
             <span class="dateTime">{formatChanDate(post.data.pubDate)}</span>
             <span class="postNum">{formatPostNumber(index + 1)}</span>
-            <span class="replyLink">[<a href={`/blog/${post.id}`}>Read</a>]</span>
+            <span class="replyLink">[<a href={`/blog/${post.id}`}>Thread</a>]</span>
           </div>
 
           <blockquote class="postMessage">
-            <p>{post.data.description || (post.body ? post.body.trim().slice(0, 180) + '...' : '')}</p>
+            <Content />
           </blockquote>
 
-          <div class="omitted">
-            {post.data.tags.length > 0 && post.data.tags.map((tag) => (
-              <span class="tagBadge">#{tag}</span>
-            ))}
-            <a href={`/blog/${post.id}`} style={post.data.tags.length > 0 ? "margin-left: 6px;" : ""}>Read More »</a>
-          </div>
+          {post.data.tags.length > 0 && (
+            <div class="omitted">
+              {post.data.tags.map((tag) => (
+                <span class="tagBadge">#{tag}</span>
+              ))}
+            </div>
+          )}
 
-          {index < sortedPosts.length - 1 && <hr class="postRule" />}
+          {index < renderedPosts.length - 1 && <hr class="postRule" />}
         </article>
       ))
     ) : (
