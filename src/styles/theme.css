@@ -281,6 +281,40 @@ hr.postRule {
   margin: 4px 0 0;
 }
 
+/* ── OP 帖子布局（支持左侧图片 + 右侧独立完整文本列，不折行环绕） ── */
+.opContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.opContainer:has(.thumbToggle:checked) {
+  flex-direction: column;
+}
+
+.opMediaCol {
+  flex-shrink: 0;
+  max-width: 230px;
+}
+
+.opMediaCol:has(.thumbToggle:checked) {
+  max-width: 100%;
+}
+
+.opMediaCol .fileInfo {
+  margin: 0 0 4px;
+}
+
+.opMediaCol .thumbBox {
+  float: none;
+  margin: 0;
+}
+
+.opBodyCol {
+  flex: 1;
+  min-width: 0;
+}
+
 /* ── 附件配图 ───────────────────────── */
 .fileInfo {
   font-size: 11px;
@@ -568,6 +602,15 @@ pre code {
 
 /* ── 移动端响应式微调 ───────────────── */
 @media (max-width: 600px) {
+  .opContainer {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .opMediaCol {
+    max-width: 100%;
+  }
+
   .boardTitle {
     font-size: 18pt;
   }

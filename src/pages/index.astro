@@ -11,55 +11,61 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pu
   <div class="board">
     <!-- 个人主页置顶 OP 帖 -->
     <article class="opPost" id="about">
-      <div class="fileInfo">
-        File: <a href="/assets/banner.png" target="_blank">banner.png</a> (654 KB, 1688x948)
-      </div>
-      <label class="thumbBox">
-        <input type="checkbox" class="thumbToggle" aria-label="展开/收起图片" />
-        <img class="thumbImg" src="/assets/banner.png" alt="/Sak1m!/" loading="lazy" />
-      </label>
-
-      <div class="opContentWithGif">
-        <div class="opTextColumn">
-          <div class="postInfo">
-            <input type="checkbox" disabled aria-hidden="true" />
-            <span class="subject">/Sak1m!/</span>
-            <span class="name">Sak1m!</span>
-            <span class="capcode">## Admin</span>
-            <span class="dateTime">{formatChanDate(new Date())}</span>
-            <span class="postNum">No.000001</span>
-            <span class="replyLink">[<a href="#recent">Recent</a>]</span>
+      <div class="opContainer">
+        <div class="opMediaCol">
+          <div class="fileInfo">
+            File: <a href="/assets/banner.png" target="_blank">banner.png</a> (654 KB, 1688x948)
           </div>
-
-          <div class="postMessage">
-            <span class="quote">&gt; 27 Club, or...what?</span>
-            <span class="quote">&gt; Welcome to /Sak1m!/.</span>
-
-            <h3>About</h3>
-            <div class="aboutGrid">
-              <span class="aboutLabel">Profile:</span>
-              <span class="aboutValue">Male | Junior @ RUC, Artificial Intelligence | Beijing (UTC+8)</span>
-              <span class="aboutLabel">Interests:</span>
-              <span class="aboutValue">Maimai DX | Vocaloid | Radical Vibe Coder | Leaderboard Grinding via <code>/goal</code> | AI Infra & Coding Agents | macOS & Linux</span>
-            </div>
-
-            <h3 id="contact">Links</h3>
-            <div class="aboutGrid">
-              <span class="aboutLabel">GitHub:</span>
-              <span class="aboutValue"><a href="https://github.com/SakuyaInazaki" target="_blank" rel="noopener">github.com/SakuyaInazaki</a></span>
-              <span class="aboutLabel">Blog:</span>
-              <span class="aboutValue"><a href="/blog">/blog/</a></span>
-              <span class="aboutLabel">Projects:</span>
-              <span class="aboutValue"><a href="/projects">/projects/</a></span>
-              <span class="aboutLabel">Friends:</span>
-              <span class="aboutValue"><a href="/friends">/friends/</a></span>
-            </div>
-          </div>
+          <label class="thumbBox">
+            <input type="checkbox" class="thumbToggle" aria-label="展开/收起图片" />
+            <img class="thumbImg" src="/assets/banner.png" alt="/Sak1m!/" loading="lazy" />
+          </label>
         </div>
 
-        <!-- 紧邻文字右侧的 GIF，正好坐在 Sak1m! ## Admin 右侧与 About 上方空白区 -->
-        <div class="opInlineGif">
-          <img class="nearContentGif" src="/assets/img/1000089397.gif" alt="typing" loading="lazy" />
+        <div class="opBodyCol">
+          <div class="opContentWithGif">
+            <div class="opTextColumn">
+              <div class="postInfo">
+                <input type="checkbox" disabled aria-hidden="true" />
+                <span class="subject">/Sak1m!/</span>
+                <span class="name">Sak1m!</span>
+                <span class="capcode">## Admin</span>
+                <span class="dateTime">{formatChanDate(new Date())}</span>
+                <span class="postNum">No.000001</span>
+                <span class="replyLink">[<a href="#recent">Recent</a>]</span>
+              </div>
+
+              <div class="postMessage">
+                <span class="quote">&gt; 27 Club, or...what?</span>
+                <span class="quote">&gt; Welcome to /Sak1m!/.</span>
+
+                <h3>About</h3>
+                <div class="aboutGrid">
+                  <span class="aboutLabel">Profile:</span>
+                  <span class="aboutValue">Male | Junior @ RUC, Artificial Intelligence | Beijing (UTC+8)</span>
+                  <span class="aboutLabel">Interests:</span>
+                  <span class="aboutValue">Maimai DX | Vocaloid | Radical Vibe Coder | Leaderboard Grinding via <code>/goal</code> | AI Infra & Coding Agents | macOS & Linux</span>
+                </div>
+
+                <h3 id="contact">Links</h3>
+                <div class="aboutGrid">
+                  <span class="aboutLabel">GitHub:</span>
+                  <span class="aboutValue"><a href="https://github.com/SakuyaInazaki" target="_blank" rel="noopener">github.com/SakuyaInazaki</a></span>
+                  <span class="aboutLabel">Blog:</span>
+                  <span class="aboutValue"><a href="/blog">/blog/</a></span>
+                  <span class="aboutLabel">Projects:</span>
+                  <span class="aboutValue"><a href="/projects">/projects/</a></span>
+                  <span class="aboutLabel">Friends:</span>
+                  <span class="aboutValue"><a href="/friends">/friends/</a></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 紧邻文字右侧的 GIF，正好坐在 Sak1m! ## Admin 右侧与 About 上方空白区 -->
+            <div class="opInlineGif">
+              <img class="nearContentGif" src="/assets/img/1000089397.gif" alt="typing" loading="lazy" />
+            </div>
+          </div>
         </div>
       </div>
     </article>

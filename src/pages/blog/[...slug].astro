@@ -30,38 +30,44 @@ const { Content } = await render(post);
 
   <div class="board">
     <article class="opPost" id={`p${index + 1}`}>
-      {post.data.image && (
-        <div class="fileInfo">
-          File: <a href={post.data.image} target="_blank">{post.data.image.split('/').pop()}</a>
-        </div>
-        <label class="thumbBox">
-          <input type="checkbox" class="thumbToggle" aria-label="展开/收起图片" />
-          <img class="thumbImg" src={post.data.image} alt={post.data.title} loading="lazy" />
-        </label>
-      )}
+      <div class="opContainer">
+        {post.data.image && (
+          <div class="opMediaCol">
+            <div class="fileInfo">
+              File: <a href={post.data.image} target="_blank">{post.data.image.split('/').pop()}</a>
+            </div>
+            <label class="thumbBox">
+              <input type="checkbox" class="thumbToggle" aria-label="展开/收起图片" />
+              <img class="thumbImg" src={post.data.image} alt={post.data.title} loading="lazy" />
+            </label>
+          </div>
+        )}
 
-      <div class="postInfo">
-        <input type="checkbox" disabled aria-hidden="true" />
-        <span class="subject">{post.data.title}</span>
-        <span class="name">Sak1m!</span>
-        <span class="capcode">## Admin</span>
-        <span class="dateTime">{formatChanDate(post.data.pubDate)}</span>
-        <span class="postNum">{formatPostNumber(index + 1)}</span>
-        <span class="replyLink">[<a href="#comments">Reply</a>]</span>
+        <div class="opBodyCol">
+          <div class="postInfo">
+            <input type="checkbox" disabled aria-hidden="true" />
+            <span class="subject">{post.data.title}</span>
+            <span class="name">Sak1m!</span>
+            <span class="capcode">## Admin</span>
+            <span class="dateTime">{formatChanDate(post.data.pubDate)}</span>
+            <span class="postNum">{formatPostNumber(index + 1)}</span>
+            <span class="replyLink">[<a href="#comments">Reply</a>]</span>
+          </div>
+
+          <blockquote class="postMessage">
+            <Content />
+          </blockquote>
+
+          {post.data.tags && post.data.tags.length > 0 && (
+            <div class="omitted" style="margin-top: 14px;">
+              <strong>Tags:</strong>
+              {post.data.tags.map((tag) => (
+                <span class="tagBadge">#{tag}</span>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-
-      <blockquote class="postMessage">
-        <Content />
-      </blockquote>
-
-      {post.data.tags && post.data.tags.length > 0 && (
-        <div class="omitted" style="margin-top: 14px;">
-          <strong>Tags:</strong>
-          {post.data.tags.map((tag) => (
-            <span class="tagBadge">#{tag}</span>
-          ))}
-        </div>
-      )}
     </article>
   </div>
 
