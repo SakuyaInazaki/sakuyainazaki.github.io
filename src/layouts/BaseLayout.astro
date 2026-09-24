@@ -12,7 +12,7 @@ interface Props {
 
 const {
   title = '/Sak1m!/',
-  description = 'Sak1m! personal space & digital garden',
+  description,
   activeBoard = 'me',
   boardName = '/Sak1m!/',
   image = '/assets/banner.png',
@@ -28,14 +28,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://sakuyain
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title === '/Sak1m!/' ? title : `${title} - /Sak1m!/`}</title>
-    <meta name="description" content={description} />
+    {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonicalURL} />
 
     <!-- OpenGraph / Social Cards -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={title === '/Sak1m!/' ? title : `${title} - /Sak1m!/`} />
+    {description && <meta property="og:description" content={description} />}
     <meta property="og:image" content={new URL(image, canonicalURL)} />
 
     <!-- Favicon & Sitemap -->
