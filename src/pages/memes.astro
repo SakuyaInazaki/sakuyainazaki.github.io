@@ -2,14 +2,17 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { formatChanDate, formatPostNumber } from '../utils/format';
+import { getGlobalPostIndex } from '../utils/posts';
 
 const allMemes = await getCollection('memes');
 const sortedMemes = allMemes.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+const postIndex = await getGlobalPostIndex();
 
 const renderedMemes = await Promise.all(
   sortedMemes.map(async (meme) => {
     const { Content } = await render(meme);
-    return { meme, Content };
+    const postNum = postIndex.get(`memes:${meme.id}`) || 1;
+    return { meme, Content, postNum };
   })
 );
 ---
@@ -17,8 +20,8 @@ const renderedMemes = await Promise.all(
 <BaseLayout title="/memes/" activeBoard="memes" boardName="/memes/">
   <div id="threads" class="board">
     {renderedMemes.length > 0 ? (
-      renderedMemes.map(({ meme, Content }, index) => (
-        <article class="opPost" id={`p${index + 1}`}>
+      renderedMemes.map(({ meme, Content, postNum }, index) => (
+        <article class="opPost" id={`p${postNum}`}>
           <div class="opContainer">
             {meme.data.image && (
               <div class="opMediaCol">
@@ -37,13 +40,13 @@ const renderedMemes = await Promise.all(
                 <input type="checkbox" disabled aria-hidden="true" />
                 {meme.data.title && (
                   <span class="subject">
-                    <a href={`#p${index + 1}`}>{meme.data.title}</a>
+                    <a href={`#p${postNum}`}>{meme.data.title}</a>
                   </span>
                 )}
                 <span class="name">Sak1m!</span>
                 <span class="capcode">## Admin</span>
                 <span class="dateTime">{formatChanDate(meme.data.pubDate)}</span>
-                <span class="postNum"><a href={`#p${index + 1}`}>{formatPostNumber(index + 1)}</a></span>
+                <span class="postNum"><a href={`#p${postNum}`}>{formatPostNumber(postNum)}</a></span>
               </div>
 
               <blockquote class="postMessage">

@@ -2,9 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { formatChanDate, formatPostNumber } from '../utils/format';
+import { getGlobalPostIndex } from '../utils/posts';
 
 const allPosts = await getCollection('blog');
 const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()).slice(0, 5);
+const postIndex = await getGlobalPostIndex();
 ---
 
 <BaseLayout title="/me/" activeBoard="me" boardName="/Sak1m!/">
@@ -30,7 +32,7 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pu
                 <span class="subject">/Sak1m!/</span>
                 <span class="name">Sak1m!</span>
                 <span class="capcode">## Admin</span>
-                <span class="dateTime">{formatChanDate(new Date())}</span>
+                <span class="dateTime">{formatChanDate('2026-09-23T08:00:00+08:00')}</span>
                 <span class="postNum">No.000001</span>
                 <span class="replyLink">[<a href="#recent">Recent</a>]</span>
               </div>
@@ -81,32 +83,35 @@ const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pu
       </div>
 
       {sortedPosts.length > 0 ? (
-        sortedPosts.map((post, idx) => (
-          <div class="replyContainer">
-            <div class="reply" style="width: 100%;">
-              <div class="postInfo">
-                <input type="checkbox" disabled aria-hidden="true" />
-                <span class="subject"><a href={`/blog#p${idx + 1}`}>{post.data.title}</a></span>
-                <span class="name">Sak1m!</span>
-                <span class="capcode">## Admin</span>
-                <span class="dateTime">{formatChanDate(post.data.pubDate)}</span>
-                <span class="postNum">{formatPostNumber(idx + 2)}</span>
-                <span class="replyLink">[<a href={`/blog#p${idx + 1}`}>Read</a>]</span>
-              </div>
-              <div class="postMessage">
-                <p style="white-space: pre-line;">{post.data.description || (post.body ? post.body.trim().slice(0, 180) + '...' : '')}</p>
-                {post.data.tags.length > 0 && (
-                  <div style="margin-top: 6px;">
-                    {post.data.tags.map((tag) => (
-                      <span class="tagBadge">#{tag}</span>
-                    ))}
-                    <a href={`/blog#p${idx + 1}`} style="font-size: 11px; margin-left: 8px;">Read More »</a>
-                  </div>
-                )}
+        sortedPosts.map((post) => {
+          const postNum = postIndex.get(`blog:${post.id}`) || 2;
+          return (
+            <div class="replyContainer">
+              <div class="reply" style="width: 100%;">
+                <div class="postInfo">
+                  <input type="checkbox" disabled aria-hidden="true" />
+                  <span class="subject"><a href={`/blog#p${postNum}`}>{post.data.title}</a></span>
+                  <span class="name">Sak1m!</span>
+                  <span class="capcode">## Admin</span>
+                  <span class="dateTime">{formatChanDate(post.data.pubDate)}</span>
+                  <span class="postNum">{formatPostNumber(postNum)}</span>
+                  <span class="replyLink">[<a href={`/blog#p${postNum}`}>Read</a>]</span>
+                </div>
+                <div class="postMessage">
+                  <p style="white-space: pre-line;">{post.data.description || (post.body ? post.body.trim().slice(0, 180) + '...' : '')}</p>
+                  {post.data.tags.length > 0 && (
+                    <div style="margin-top: 6px;">
+                      {post.data.tags.map((tag) => (
+                        <span class="tagBadge">#{tag}</span>
+                      ))}
+                      <a href={`/blog#p${postNum}`} style="font-size: 11px; margin-left: 8px;">Read More »</a>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))
+          );
+        })
       ) : (
         <div class="opPost">
           <blockquote class="postMessage">None.</blockquote>
