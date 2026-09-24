@@ -4,7 +4,7 @@ import '../styles/theme.css';
 interface Props {
   title?: string;
   description?: string;
-  activeBoard?: 'me' | 'blog' | 'projects' | 'friends';
+  activeBoard?: 'me' | 'blog' | 'memes' | 'projects' | 'friends';
   boardName?: string;
   image?: string;
   showBanner?: boolean;
@@ -64,6 +64,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://sakuyain
         [
         <a href="/" class={activeBoard === 'me' ? 'active' : ''}>/me/</a> /
         <a href="/blog" class={activeBoard === 'blog' ? 'active' : ''}>/blog/</a> /
+        <a href="/memes" class={activeBoard === 'memes' ? 'active' : ''}>/memes/</a> /
         <a href="/projects" class={activeBoard === 'projects' ? 'active' : ''}>/projects/</a> /
         <a href="/friends" class={activeBoard === 'friends' ? 'active' : ''}>/friends/</a>
         ]
@@ -98,7 +99,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://sakuyain
     <hr class="topRule" />
 
     <footer class="navLinks navBottom">
-      [<a href="#top">Top</a>] [<a href="/">/me/</a>] [<a href="/blog">/blog/</a>] [<a href="/projects">/projects/</a>] [<a href="/friends">/friends/</a>]
+      [<a href="#top">Top</a>] [<a href="/">/me/</a>] [<a href="/blog">/blog/</a>] [<a href="/memes">/memes/</a>] [<a href="/projects">/projects/</a>] [<a href="/friends">/friends/</a>]
     </footer>
 
     <!-- 主题切换交互脚本 -->

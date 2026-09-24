@@ -13,4 +13,13 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+const memes = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/memes' }),
+  schema: z.object({
+    title: z.string().default(''),
+    pubDate: z.coerce.date().default(() => new Date()),
+    image: z.string().optional(),
+  }),
+});
+
+export const collections = { blog, memes };

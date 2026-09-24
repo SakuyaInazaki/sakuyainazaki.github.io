@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { formatChanDate, formatPostNumber } from '../utils/format';
+
+const allMemes = await getCollection('memes');
+const sortedMemes = allMemes.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const renderedMemes = await Promise.all(
+  sortedMemes.map(async (meme) => {
+    const { Content } = await render(meme);
+    return { meme, Content };
+  })
+);
+---
+
+<BaseLayout title="/memes/" activeBoard="memes" boardName="/memes/">
+  <div id="threads" class="board">
+    {renderedMemes.length > 0 ? (
+      renderedMemes.map(({ meme, Content }, index) => (
+        <article class="opPost" id={`p${index + 1}`}>
+          <div class="opContainer">
+            {meme.data.image && (
+              <div class="opMediaCol">
+                <div class="fileInfo">
+                  File: <a href={meme.data.image} target="_blank">{meme.data.image.split('/').pop()}</a>
+                </div>
+                <label class="thumbBox">
+                  <input type="checkbox" class="thumbToggle" aria-label="展开/收起图片" />
+                  <img class="thumbImg" src={meme.data.image} alt={meme.data.title || 'meme'} loading="lazy" />
+                </label>
+              </div>
+            )}
+
+            <div class="opBodyCol">
+              <div class="postInfo">
+                <input type="checkbox" disabled aria-hidden="true" />
+                {meme.data.title && (
+                  <span class="subject">
+                    <a href={`#p${index + 1}`}>{meme.data.title}</a>
+                  </span>
+                )}
+                <span class="name">Sak1m!</span>
+                <span class="capcode">## Admin</span>
+                <span class="dateTime">{formatChanDate(meme.data.pubDate)}</span>
+                <span class="postNum"><a href={`#p${index + 1}`}>{formatPostNumber(index + 1)}</a></span>
+              </div>
+
+              <blockquote class="postMessage">
+                <Content />
+              </blockquote>
+            </div>
+          </div>
+
+          {index < renderedMemes.length - 1 && <hr class="postRule" />}
+        </article>
+      ))
+    ) : (
+      <blockquote class="postMessage">None.</blockquote>
+    )}
+  </div>
+</BaseLayout>
