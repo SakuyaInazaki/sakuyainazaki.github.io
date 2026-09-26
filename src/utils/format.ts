@@ -18,3 +18,14 @@ export function formatChanDate(dateInput: Date | string): string {
 export function formatPostNumber(n: number): string {
   return `No.${String(n).padStart(6, '0')}`;
 }
+
+export function getMemeThumbnail(imagePath?: string): string | undefined {
+  if (!imagePath) return undefined;
+  if (imagePath.startsWith('/assets/memes/')) {
+    const filename = imagePath.replace('/assets/memes/', '');
+    if (filename.startsWith('thumbs/')) return imagePath;
+    const base = filename.replace(/\.[^.]+$/, '');
+    return `/assets/memes/thumbs/${base}.webp`;
+  }
+  return imagePath;
+}

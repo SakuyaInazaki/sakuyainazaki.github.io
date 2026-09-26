@@ -787,3 +787,31 @@ pre[data-language="art"] .line {
     margin: 8px 0 8px 1.6em;
   }
 }
+
+/* ── 4chan 原生分页条 (Pagelist) ──────────── */
+.pagelist {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: var(--post-bg);
+  border: 1px solid var(--post-border);
+  padding: 6px 12px;
+  margin: 16px 0;
+  font-size: 12px;
+  border-radius: 2px;
+}
+
+.pagelist a {
+  text-decoration: none;
+}
+
+.pagelist a:hover {
+  text-decoration: underline;
+}
+
+.pagelist strong {
+  color: var(--subject);
+  font-weight: bold;
+}
