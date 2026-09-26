@@ -41,6 +41,15 @@ html[data-theme="dark"] {
   --tag-bg: #303338;
 }
 
+/* ── Shift-JIS / 2ch ASCII Art Webfont (Textar) ── */
+@font-face {
+  font-family: 'Textar';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/textar-light.woff2') format('woff2');
+}
+
 * {
   box-sizing: border-box;
 }
@@ -543,6 +552,86 @@ pre code {
   background: none !important;
   border: 0;
   padding: 0;
+}
+
+/* ── 字符画防变形渲染 (ASCII Art / Shift-JIS Art) ─────── */
+
+/* 日式 2ch/4chan Shift-JIS Art (如 モナー、やる夫、东方AA等) */
+.aa,
+pre.aa,
+pre[data-language="aa"],
+pre[data-language="sjis"] {
+  font-family: "MS PGothic", "ＭＳ Ｐゴシック", "IPAMonaPGothic", "Mona", "Textar", sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.15 !important;
+  white-space: pre !important;
+  word-wrap: normal !important;
+  word-break: normal !important;
+  overflow-x: auto;
+  letter-spacing: 0 !important;
+  text-align: left !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 4px 0 !important;
+  margin: 8px 0 !important;
+  color: var(--text) !important;
+  -webkit-text-size-adjust: 100%;
+}
+
+.aa code,
+pre.aa code,
+pre[data-language="aa"] code,
+pre[data-language="sjis"] code,
+.aa .line,
+pre.aa .line,
+pre[data-language="aa"] .line,
+pre[data-language="sjis"] .line {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  white-space: inherit !important;
+  color: inherit !important;
+  letter-spacing: inherit !important;
+}
+
+/* 欧美等宽 ASCII 字符画 (如 Terminal Art, Figlet, 字符标语等) */
+.ascii,
+.ascii-art,
+pre.ascii,
+pre.ascii-art,
+pre[data-language="ascii"],
+pre[data-language="art"] {
+  font-family: ui-monospace, "SF Mono", "DejaVu Sans Mono", Menlo, Monaco, Consolas, "Courier New", monospace !important;
+  font-size: 12px !important;
+  line-height: 1.15 !important;
+  white-space: pre !important;
+  word-wrap: normal !important;
+  word-break: normal !important;
+  overflow-x: auto;
+  letter-spacing: 0 !important;
+  text-align: left !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 4px 0 !important;
+  margin: 8px 0 !important;
+  color: var(--text) !important;
+  -webkit-text-size-adjust: 100%;
+}
+
+.ascii code,
+pre.ascii code,
+pre[data-language="ascii"] code,
+pre[data-language="art"] code,
+.ascii .line,
+pre.ascii .line,
+pre[data-language="ascii"] .line,
+pre[data-language="art"] .line {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  white-space: inherit !important;
+  color: inherit !important;
+  letter-spacing: inherit !important;
 }
 
 /* ── 4chan 交互回复框 Mock ──────────── */
