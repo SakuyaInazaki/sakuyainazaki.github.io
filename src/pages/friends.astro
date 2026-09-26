@@ -4,11 +4,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 interface Friend {
   name: string;
   url: string;
-  avatar: string;
-  description: string;
+  avatar?: string;
+  description?: string;
 }
 
-const friends: Friend[] = [];
+const friends: Friend[] = [
+  {
+    name: 'Yonacky',
+    url: 'https://yonacky.github.io/',
+    avatar: '/assets/friends/yonacky.png',
+  },
+];
 ---
 
 <BaseLayout title="/friends/" activeBoard="friends" boardName="/friends/">
@@ -17,10 +23,12 @@ const friends: Friend[] = [];
       <div class="friendsGrid">
         {friends.map((friend) => (
           <a class="friendCard" href={friend.url} target="_blank" rel="noopener">
-            <img class="friendAvatar" src={friend.avatar} alt={friend.name} loading="lazy" />
+            {friend.avatar && (
+              <img class="friendAvatar" src={friend.avatar} alt={friend.name} loading="lazy" />
+            )}
             <div class="friendMeta">
               <h4>{friend.name} ↗</h4>
-              <p class="friendDesc">{friend.description}</p>
+              {friend.description && <p class="friendDesc">{friend.description}</p>}
             </div>
           </a>
         ))}

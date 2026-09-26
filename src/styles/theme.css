@@ -396,7 +396,7 @@ hr.postRule {
   padding: 10px;
   display: flex;
   gap: 10px;
-  align-items: flex-start;
+  align-items: center;
   text-decoration: none;
   color: var(--text);
   border-radius: 2px;
